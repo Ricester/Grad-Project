@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <py-config>
+        packages = ['beautifulsoup4']
+    </py-config>
+    <link rel="stylesheet" type="text/css" href="styling.css">
+    <!--changes tab name-->
+    <head>
+        <title> Evaluation Tool </title>
+        <!--adds pyscript-->
+        <link
+            rel="stylesheet"
+            href="https://pyscript.net/releases/2023.11.2/core.css"
+        />
+        <script
+            type="module"
+            src="https://pyscript.net/releases/2023.11.2/core.js"
+        ></script>
+    </head>
+    <!--adds an image to the top of the website-->
+    <header>
+        <img src="resources/welcome.png" alt="Welcome to the Evaluation Tool!" style="width:100%;height:200px;">
+    </header>
+    <body>
+        <h1> Welcome to the Evaluation Tool website!</h1>
+        <p> Enter the URL of the site you wish to evaluate below:</p>
+        <!--form here for user to input url of test site-->
+
+        <form>
+            <input type="text" id="urlInput" placeholder="Enter URL" style="width: 900px; height: 100px">
+            <input type="button" value="Submit" onclick="redirectToEvaluationPage()">
+        </form>
+        <!--function to redirect to evaluation page-->
+        <script>
+            function redirectToEvaluationPage() {
+                var url = document.getElementById("urlInput").value;
+                window.location.href = "report.html?url=" + url;
+            }
+        </script>
+
+        <span title="Here's the tooltip!" style="color: red;">Hover your mouse here! Text in this colour will have tooltips!</span>
+        <h2>Features available</h2>
+        <!--tabs for the features of the website-->
+        <!--stack overflow was my best friend in trying to figure this part out-->
+        <script>
+            // function to change a selected tab to active tab
+            function openTab(event, tabName) {
+                var i, tabcontent, tablinks;
+                tabcontent = document.getElementsByClassName("tabcontent");
+                for (i = 0; i < tabcontent.length; i++) {
+                    tabcontent[i].style.display = "none";
+                }
+                tablinks = document.getElementsByClassName("tablinks");
+                for (i = 0; i < tablinks.length; i++) {
+                    tablinks[i].className = tablinks[i].className.replace(" active", "");
+                }
+                document.getElementById(tabName).style.display = "block";
+                event.currentTarget.className += " active";
+            }
+        </script>
+
+        <!--tab links-->
+        <div class="tab">
+            <button class="tablinks" onclick="openTab(event, 'tab1')">Analysing accessibility</button>
+            <button class="tablinks" onclick="openTab(event, 'tab2')">Providing suggestions for improvement</button>
+            <button class="tablinks" onclick="openTab(event, 'tab3')">Making small adjustments to improve accessibility</button>
+        </div>
+        <!--tab 1: Analysing accessibility-->
+        <div id="tab1" class="tabcontent
+        ">
+            <h3>Analysing accessibility</h3>
+            <p> This feature allows you to evaluate the accessibility of a website. It will provide you with a report on the accessibility of the website, including any issues that need to be addressed.</p>
+        </div>
+        <!--tab 2: Providing suggestions for improvement-->
+        <div id="tab2" class="tabcontent
+        ">
+            <h3>Providing suggestions for improvement</h3>
+            <p> This feature provides you with suggestions on how to improve the accessibility of a website. It will give you recommendations on how to make the website more accessible to all users.</p>
+        </div>
+        <!--tab 3: Making small adjustments to improve accessibility-->
+        <div id="tab3" class="tabcontent
+        ">
+            <h3>Making small adjustments to improve accessibility</h3>
+            <p> This feature allows you to make small adjustments to a website to improve its accessibility. It will provide you with step-by-step instructions on how to make the necessary changes.</p>
+        </div>
+           <p> Created by Erika Imanaka Yu for her 2024 graduation project</p>
+    </body>
+</html>

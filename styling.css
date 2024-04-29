@@ -1,0 +1,58 @@
+/* File: /Users/erika/Documents/Grad Project/styling/styling.css */
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #5e61b5;
+    padding: 10px;
+    margin: 0;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+body {
+    background-color: darkgray;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+/* Styles the tab */
+.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+  }
+  
+  /* Styles the buttons that are used to open the tab content */
+  .tab button {
+    background-color: inherit;
+    float: left;
+    border: 1px solid;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+  }
+  
+  /* Changes background colour of buttons when hovering, made it blue to fit the background image */
+  .tab button:hover {
+    background-color: #a1a5ff;
+  }
+  
+  /* Creates an active/current tablink class */
+  .tab button.active {
+    background-color: #5e61b5;
+  }
+  
+  /* Styles the tab content */
+  .tabcontent {
+    display: block;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+  }
+  /* Changes the font to Tahoma */
+  body {
+    font-family: Tahoma, sans-serif;
+  }
