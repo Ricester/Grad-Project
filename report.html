@@ -13,8 +13,42 @@
 </head>
 <body>
     <h1>Report</h1>
-        <script type="py" terminal>
-            
+    <p>Here is the report for the website you entered:</p>
+    <p>URL: <span id="url"></span></p>
+    <p>Number of images: <span id="numImages"></span></p>
+    <p>Number of links: <span id="numLinks"></span></p>
+    <p>Number of headings: <span id="numHeadings"></span></p>
+    <p>Number of paragraphs: <span id="numParagraphs"></span></p>
+    <p>Number of lists: <span id="numLists"></span></p>
+    <p>Number of tables: <span id="numTables"></span></p>
+    <p>Number of forms: <span id="numForms"></span></p>
+    <p>Number of buttons: <span id="numButtons"></span></p>
+    <p>Number of input fields: <span id="numInputFields"></span></p>
+    <p>Number of images with alt text: <span id="numImagesWithAltText"></span></p>
+    <p>Number of links with title text: <span id="numLinksWithTitleText"></span></p>
+    <p>Number of headings with text: <span id="numHeadingsWithText"></span></p>
+    <p>Number of paragraphs with text: <span id="numParagraphsWithText"></span></p>
+    <p>Number of lists with text: <span id="numListsWithText"></span></p>
+    <p>Number of tables with text: <span id="numTablesWithText"></span></p>
+    <p>Number of forms with text: <span id="numFormsWithText"></span></p>
+    <p>Number of buttons with text: <span id="numButtonsWithText"></span></p>
+    <p>Number of input fields with text: <span id="numInputFieldsWithText"></span></p>
+    <p>Number of images without alt text: <span id="numImagesWithoutAltText"></span></p>
+    <p>Number of links without title text: <span id="numLinksWithoutTitleText"></span></p>
+    <p>Number of headings without text: <span id="numHeadingsWithoutText"></span></p>
+    <p>Number of paragraphs without text: <span id="numParagraphsWithoutText"></span></p>
+    <p>Number of lists without text: <span id="numListsWithoutText"></span></p>
+    <p>Number of tables without text: <span id="numTablesWithoutText"></span></p>
+    <p>Number of forms without text: <span id="numFormsWithoutText"></span></p>
+    <p>Number of buttons without text: <span id="numButtonsWithoutText"></span></p>
+    <p>Number of input fields without text: <span id="numInputFieldsWithoutText"></span></p>
+        <script>
+            function runPython() {
+                var py = new PyScript();
+                py.run(
+                    `print("Hello from Python!")`
+                );
+            }
         </script>
 <!-- website report instance-->
     <div class="progress-bar">
