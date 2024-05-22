@@ -80,6 +80,7 @@ def assess_accessibility(url):
             return False
             
             # Example: Check if the h1 heading is the first heading in the document
+        def has_h1_as_first_heading(soup):
             first_heading = soup.find('h1')
             first_element = soup.find()
             if first_heading != first_element:
@@ -121,17 +122,6 @@ def assess_accessibility(url):
             return False
         
         
-
-        # Main program
-        if __name__ == "__main__":
-            # Enter the URL of the web page you want to assess
-            url = input("Enter the URL of the web page: ")
-            
-            # Call the assess_accessibility function
-            assess_accessibility(url)
-            
-            # Call the check_color_contrast function
-            check_color_contrast(url)
 # Main program
 if __name__ == "__main__":
     # Enter the URL of the web page you want to assess
