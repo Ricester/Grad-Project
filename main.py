@@ -77,15 +77,15 @@ def assess_accessibility(url):
             # Perform logic to check if the element has a valid heading structure
             h1_headings = soup.find_all('h1')
             if len(h1_headings) < 1:
-            return False
+                return False
+            return True
             
             # Example: Check if the h1 heading is the first heading in the document
         def has_h1_as_first_heading(soup):
             first_heading = soup.find('h1')
             first_element = soup.find()
             if first_heading != first_element:
-            return False
-            
+                return False
             return True
 
         # Function to check if an element has a valid link text
@@ -93,8 +93,7 @@ def assess_accessibility(url):
             # Perform logic to check if the element has a valid link text
             link_text = element.text.strip()
             if len(link_text) < 1:
-            return False
-            
+                return False
             return True
 
         # Function to check if an element has a valid role
@@ -102,7 +101,7 @@ def assess_accessibility(url):
             # Perform logic to check if the element has a valid role
             role = element.get('role')
             if role:
-            return True
+                return True
             return False
 
         # Function to check if an element has a valid tabindex
@@ -110,7 +109,7 @@ def assess_accessibility(url):
             # Perform logic to check if the element has a valid tabindex
             tabindex = element.get('tabindex')
             if tabindex:
-            return True
+                return True
             return False
 
         # Function to check if an element has a valid form label
@@ -118,7 +117,31 @@ def assess_accessibility(url):
             # Perform logic to check if the element has a valid form label
             form_label = element.get('aria-label')
             if form_label:
-            return True
+                return True
+            return False
+
+        # Function to check if an element has a valid label for form controls
+        def has_valid_form_control_label(element):
+            # Perform logic to check if the element has a valid label for form controls
+            label = element.get('aria-labelledby')
+            if label:
+                return True
+            return False
+
+        # Function to check if an element has a valid language attribute
+        def has_valid_language_attribute(element):
+            # Perform logic to check if the element has a valid language attribute
+            lang_attribute = element.get('lang')
+            if lang_attribute:
+                return True
+            return False
+
+        # Function to check if an element has a valid title attribute
+        def has_valid_title_attribute(element):
+            # Perform logic to check if the element has a valid title attribute
+            title_attribute = element.get('title')
+            if title_attribute:
+                return True
             return False
         
         
