@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
+    <link rel="stylesheet" type="text/css" href="styling.css">
 <head>
-    <title>Report</title>
+    <title>Accessibility Report</title>
     <link
     rel="stylesheet"
     href="https://pyscript.net/releases/2023.11.2/core.css"
@@ -42,23 +43,6 @@
     <p>Number of forms without text: <span id="numFormsWithoutText"></span></p>
     <p>Number of buttons without text: <span id="numButtonsWithoutText"></span></p>
     <p>Number of input fields without text: <span id="numInputFieldsWithoutText"></span></p>
-        <script>
-            function runPython() {
-                var py = new PyScript();
-                py.run(
-                    `print("Hello from Python!")`
-                );
-            }
-        </script>
 <!-- website report instance-->
-    <div class="progress-bar">
-        <div class="progress">
-            <progress value="0" max="100"></progress>
-        </div>
-    </div>
-    <details>
-        <summary>Click to expand</summary>
-        <p>This is the collapsible content.</p>
-    </details>
 </body>
 </html>

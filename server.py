@@ -4,11 +4,11 @@ import main
 app = Flask(__name__)
 
 @app.route('/')
-def website():
+def home():
     return render_template('index.html')
 
 @app.route('/report', methods=['POST'])
-    def generate_report():
+def generate_report():
         url = request.form['url']
         # Call the main.py functions with the provided URL
         main.assess_accessibility(url)
