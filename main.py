@@ -87,9 +87,9 @@ def assess_accessibility(url):
             if foreground_color and background_color:
                 contrast_ratio = calculate_contrast_ratio(foreground_color, background_color)
                 if contrast_ratio < 4.5:
-                    print("Element does not have sufficient color contrast:" contrast_ratio)
+                    print("Element does not have sufficient color contrast:", contrast_ratio)
             else:
-                print("Element has sufficient color contrast:" contrast_ratio)
+                print("Element has sufficient color contrast:", contrast_ratio)
 
         # Function to calculate the contrast ratio between two colors
         def calculate_contrast_ratio(color1, color2):
@@ -107,7 +107,7 @@ def assess_accessibility(url):
             label = element.get('aria-label')
             if label:
                 print("Element has a descriptive label")
-            else
+            else:
                 print("Element does not have a descriptive label")
         # Function to check if an element has a valid heading structure
         def has_valid_heading_structure(soup):
@@ -115,7 +115,7 @@ def assess_accessibility(url):
             h1_headings = soup.find_all('h1')
             if len(h1_headings) < 1:
                 print("Document does not have an H1 heading")
-            else
+            else:
                 print("Document has an H1 heading")
             
             # Example: Check if the h1 heading is the first heading in the document
@@ -124,7 +124,7 @@ def assess_accessibility(url):
             first_element = soup.find()
             if first_heading != first_element:
                 print("H1 is not the first heading in the document")
-            else
+            else:
                 print("H1 is the first heading in the document")
 
         # Function to check if an element has a valid link text
@@ -133,7 +133,7 @@ def assess_accessibility(url):
             link_text = element.text.strip()
             if len(link_text) < 1:
                 print("Link does not have valid text")
-            else
+            else:
                 print("Link has valid text")
 
         # Function to check if an element has a valid role
@@ -142,7 +142,7 @@ def assess_accessibility(url):
             role = element.get('role')
             if role:
                 print("Element has a valid role")
-            else
+            else:
                 print("Element does not have a valid role")
 
         # Function to check if an element has a valid tabindex
@@ -151,7 +151,7 @@ def assess_accessibility(url):
             tabindex = element.get('tabindex')
             if tabindex:
                 print("Element has a valid tabindex")
-            else
+            else:
                 print("Element does not have a valid tabindex")
 
         # Function to check if an element has a valid form label
@@ -160,7 +160,7 @@ def assess_accessibility(url):
             form_label = element.get('aria-label')
             if form_label:
                 print("Element has a valid form label")
-            else
+            else:
                 print("Element does not have a valid form label")
 
         # Function to check if an element has a valid label for form controls
@@ -169,7 +169,7 @@ def assess_accessibility(url):
             label = element.get('aria-labelledby')
             if label:
                 print("Element has a valid label for form controls")
-            else
+            else:
                 print("Element does not have a valid label for form controls")
                 
 
@@ -179,7 +179,7 @@ def assess_accessibility(url):
             lang_attribute = element.get('lang')
             if lang_attribute:
                 print("Element has a valid language attribute")
-            else
+            else:
                 print("Element does not have a valid language attribute")
 
         # Function to check if an element has a valid title attribute
@@ -188,7 +188,7 @@ def assess_accessibility(url):
             title_attribute = element.get('title')
             if title_attribute:
                 print("Element has a valid title attribute")
-            else
+            else:
                 print("Element does not have a valid title attribute")
         
         
