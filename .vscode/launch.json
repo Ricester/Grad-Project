@@ -7,8 +7,8 @@
         {
             "type": "chrome",
             "request": "launch",
-            "name": "Open index.html",
-            "file": "/Users/erika/Documents/Grad Project/main.py"
+            "name": "Open server.py",
+            "file": "/Users/erika/Documents/Grad Project/server.py"
         }
     ]
 }

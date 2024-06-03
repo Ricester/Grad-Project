@@ -87,8 +87,9 @@ def assess_accessibility(url):
             if foreground_color and background_color:
                 contrast_ratio = calculate_contrast_ratio(foreground_color, background_color)
                 if contrast_ratio < 4.5:
-                    return False
-            return True
+                    print("Element does not have sufficient color contrast:" contrast_ratio)
+            else:
+                print("Element has sufficient color contrast:" contrast_ratio)
 
         # Function to calculate the contrast ratio between two colors
         def calculate_contrast_ratio(color1, color2):
