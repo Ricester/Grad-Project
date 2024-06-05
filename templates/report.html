@@ -3,16 +3,20 @@
     <link rel="stylesheet" type="text/css" href="styling.css">
 <head>
     <title>Accessibility Report</title>
-    <link
-    rel="stylesheet"
-    href="https://pyscript.net/releases/2023.11.2/core.css"
-/>
+    <link rel="stylesheet" href="https://pyscript.net/releases/2023.11.2/core.css"/>
 <script
     type="module"
     src="https://pyscript.net/releases/2023.11.2/core.js"
 ></script>
 </head>
 <body>
-
+<h1>Accessibility Report</h1>
+<!--adding the list for variables for accessibility checks-->
+{% if report.successful %}
+    <h3>The number of images without appropriate alt text was: {{ report.num_images_without_alt }}</h3>
+    <h3>The number of links is: {{ report.num_links }}</h3>
+{% else %}
+    <h3>Failed to generate report.</h3>
+{% endif %}
 </body>
 </html>

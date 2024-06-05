@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import main
 
 app = Flask(__name__)
@@ -8,14 +8,14 @@ app.static_folder = 'static'
 def home():
     return render_template('index.html')
 
-@app.route('/report', methods=['POST'])
+@app.route('/report')
 def generate_report():
-        url = request.form['url']
+        url = request.args.get('url')
         # Call the main.py functions with the provided URL
-        main.assess_accessibility(url)
+        report = main.assess_accessibility(url)
         # Generate the report using the results
         # Return the rendered report template
-        return render_template('report.html')
+        return render_template('report.html', report=report)
 
 if __name__ == '__main__':
     app.run()

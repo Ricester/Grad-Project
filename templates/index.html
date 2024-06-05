@@ -18,15 +18,15 @@
         <!--form here for user to input url of test site-->
 
         <form>
-            <input type="text" id="urlInput" placeholder="Enter URL" style="width: 600px; height: 100px">
+            <input type="text" id="urlInput" placeholder="Enter URL" style="width: 600px; height: 50px">
             <input type="button" value="Submit" onclick="redirectToEvaluationPage()">
-            <span title="Enter the URL of the website you wish to evaluate, then click submit.">?</span>
+            <span title="Enter the URL of the website you wish to evaluate, then click submit."></span>
         </form>
         <!--function to redirect to evaluation page-->
         <script>
             function redirectToEvaluationPage() {
                 var url = document.getElementById("urlInput").value;
-                window.location.href = "report.html?url=" + url;
+                window.location.href = "report?url=" + url;
             }
         </script>
 
@@ -56,14 +56,12 @@
             <button class="tablinks" onclick="openTab(event, 'tab2')">Providing suggestions for improvement</button>
         </div>
         <!--tab 1: Analysing accessibility-->
-        <div id="tab1" class="tabcontent
-        ">
+        <div id="tab1" class="tabcontent" style="display: none;">
             <h3>Analysing accessibility</h3>
             <p> This feature allows you to evaluate the accessibility of a website. It will provide you with a report on the accessibility of the website, including any issues that need to be addressed.</p>
         </div>
         <!--tab 2: Providing suggestions for improvement-->
-        <div id="tab2" class="tabcontent
-        ">
+        <div id="tab2" class="tabcontent" style="display: none;">
             <h3>Providing suggestions for improvement</h3>
             <p> This feature provides you with suggestions on how to improve the accessibility of a website. It will give you recommendations on how to make the website more accessible to all users.</p>
         </div>
