@@ -16,6 +16,7 @@ class AccessibilityReport:
         self.has_valid_form_control_label = False
         self.has_valid_language_attribute = False
         self.has_valid_title_attribute = False
+        self.headings = False
 
 # Function to calculate the contrast ratio between two colors
 def calculate_contrast_ratio(color1, color2):
@@ -50,16 +51,20 @@ def has_descriptive_label(element):
     label = element.get('aria-label')
     if label:
         print("Element has a descriptive label")
+        return True
     else:
         print("Element does not have a descriptive label")
+        return False
 # Function to check if an element has a valid heading structure
 def has_valid_heading_structure(soup):
     # Perform logic to check if the element has a valid heading structure
     h1_headings = soup.find_all('h1')
     if len(h1_headings) < 1:
         print("Document does not have an H1 heading")
+        return False
     else:
         print("Document has an H1 heading")
+        return True
     
     # Example: Check if the h1 heading is the first heading in the document
 def has_h1_as_first_heading(soup):
@@ -67,8 +72,10 @@ def has_h1_as_first_heading(soup):
     first_element = soup.find()
     if first_heading != first_element:
         print("H1 is not the first heading in the document")
+        return False
     else:
         print("H1 is the first heading in the document")
+        return True
 
 # Function to check if an element has a valid link text
 def has_valid_link_text(element):
@@ -76,8 +83,10 @@ def has_valid_link_text(element):
     link_text = element.text.strip()
     if len(link_text) < 1:
         print("Link does not have valid text")
+        return False
     else:
         print("Link has valid text")
+        return True
 
 # Function to check if an element has a valid role
 def has_valid_role(element):
@@ -85,8 +94,10 @@ def has_valid_role(element):
     role = element.get('role')
     if role:
         print("Element has a valid role")
+        return True
     else:
         print("Element does not have a valid role")
+        return False
 
 # Function to check if an element has a valid tabindex
 def has_valid_tabindex(element):
@@ -94,8 +105,10 @@ def has_valid_tabindex(element):
     tabindex = element.get('tabindex')
     if tabindex:
         print("Element has a valid tabindex")
+        return True
     else:
         print("Element does not have a valid tabindex")
+        return False
 
 # Function to check if an element has a valid form label
 def has_valid_form_label(element):
@@ -103,8 +116,10 @@ def has_valid_form_label(element):
     form_label = element.get('aria-label')
     if form_label:
         print("Element has a valid form label")
+        return True
     else:
         print("Element does not have a valid form label")
+        return False
 
 # Function to check if an element has a valid label for form controls
 def has_valid_form_control_label(element):
@@ -112,8 +127,10 @@ def has_valid_form_control_label(element):
     label = element.get('aria-labelledby')
     if label:
         print("Element has a valid label for form controls")
+        return True
     else:
         print("Element does not have a valid label for form controls")
+        return False
         
 
 # Function to check if an element has a valid language attribute
@@ -134,6 +151,15 @@ def has_valid_title_attribute(element):
     else:
         print("Element does not have a valid title attribute")
 
+# Perform logic to check visual clarity of the HTML page
+# You can use the soup object to access the HTML elements
+
+# Example: Check if the HTML page has a clear visual hierarchy
+headings = soup.find_all(['h1', 'h2', 'h3', 'h4', 'h5', 'h6'])
+if len(headings) > 1:
+    print("HTML page has a clear visual hierarchy")
+else:
+    print("HTML page does not have a clear visual hierarchy")
 
 # Function to check accessibility of a web page
 def assess_accessibility(url):

@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-import main
+import main.py as main
 
 app = Flask(__name__)
 app.static_folder = 'static'

@@ -13,8 +13,21 @@
 <h1>Accessibility Report</h1>
 <!--adding the list for variables for accessibility checks-->
 {% if report.successful %}
-    <h3>The number of images without appropriate alt text was: {{ report.num_images_without_alt }}</h3>
-    <h3>The number of links is: {{ report.num_links }}</h3>
+    <h1>The website was successfully evaluated! Here is a table of accessibility issues:</h1>
+    <table>
+        <tr>
+            <th>Variable</th>
+            <th>Value</th>
+        </tr>
+        <tr>
+            <td>Number of images without alt text</td>
+            <td>{{ report.num_images_without_alt }}</td>
+        </tr>
+        <tr>
+            <td>Number of links</td>
+            <td>{{ report.num_links }}</td>
+        </tr>
+    </table>
 {% else %}
     <h3>Failed to generate report.</h3>
 {% endif %}
