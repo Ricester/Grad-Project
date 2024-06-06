@@ -17,7 +17,7 @@ class AccessibilityReport:
         self.has_valid_language_attribute = False
         self.has_valid_title_attribute = False
         self.headings = False
-
+soup = BeautifulSoup('<html><head><title>Test</title></head><body><h1>Heading 1</h1><p>Paragraph</p></body></html>', 'html.parser')
 # Function to calculate the contrast ratio between two colors
 def calculate_contrast_ratio(color1, color2):
     # Perform contrast ratio calculation logic here
@@ -174,7 +174,6 @@ def assess_accessibility(url):
     # Check if the request was successful
     if response.status_code == 200:
         # Parse the HTML content using BeautifulSoup
-        soup = BeautifulSoup(response.content, 'html.parser')
         report.successful = True
         
         # Perform accessibility assessment logic here
