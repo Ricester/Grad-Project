@@ -28,7 +28,12 @@
             <td>{{ report.num_links }}</td>
         </tr>
         <tr>
-            
+            <td>Number of elements without sufficient colour contrast</td>
+            <td>{{ report.num_insufficient_contrast_elements }}</td>
+        </tr>
+        <tr>
+            <td>Does the element have a valid language attribute?</td>
+            <td>{{ title_attribute }}</td>
         </tr>
     </table>
 {% else %}

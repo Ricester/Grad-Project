@@ -17,6 +17,8 @@ class AccessibilityReport:
         self.has_valid_language_attribute = False
         self.has_valid_title_attribute = False
         self.headings = False
+
+
 soup = BeautifulSoup('<html><head><title>Test</title></head><body><h1>Heading 1</h1><p>Paragraph</p></body></html>', 'html.parser')
 # Function to calculate the contrast ratio between two colors
 def calculate_contrast_ratio(color1, color2):
@@ -40,10 +42,10 @@ def has_sufficient_contrast(element):
         contrast_ratio = calculate_contrast_ratio(foreground_color, background_color)
         if contrast_ratio < 4.5:
             print("Element does not have sufficient color contrast:", contrast_ratio)
-            return False
+            return True
         else:
             print("Element has sufficient color contrast:", contrast_ratio)
-    return True
+            return False
 
  # Function to check if an element has a descriptive label
 def has_descriptive_label(element):
@@ -105,7 +107,6 @@ def has_valid_tabindex(element):
     tabindex = element.get('tabindex')
     if tabindex:
         print("Element has a valid tabindex")
-        return True
     else:
         print("Element does not have a valid tabindex")
         return False
@@ -174,6 +175,7 @@ def assess_accessibility(url):
     # Check if the request was successful
     if response.status_code == 200:
         # Parse the HTML content using BeautifulSoup
+        soup = BeautifulSoup(response.content, 'html.parser')
         report.successful = True
         
         # Perform accessibility assessment logic here
