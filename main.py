@@ -7,16 +7,18 @@ class AccessibilityReport:
         self.num_images_without_alt = 0
         self.num_links = 0
         self.num_insufficient_contrast_elements = 0
-        self.has_h1_heading = False
         self.has_valid_heading_structure = False
         self.has_valid_link_text = False
         self.has_valid_role = False
         self.has_valid_tabindex = False
         self.has_valid_form_label = False
-        self.has_valid_form_control_label = False
         self.has_valid_language_attribute = False
-        self.has_valid_title_attribute = False
+        self.title_attribute = False
         self.headings = False
+        self.contrast_ratio = False
+        self.num_links_with_valid_text = 0
+        self.num_links_without_valid_text = 0
+        self.inaccessible_elements = []
 
 
 soup = BeautifulSoup('<html><head><title>Test</title></head><body><h1>Heading 1</h1><p>Paragraph</p></body></html>', 'html.parser')
@@ -67,17 +69,6 @@ def has_valid_heading_structure(soup):
     else:
         print("Document has an H1 heading")
         return True
-    
-    # Example: Check if the h1 heading is the first heading in the document
-def has_h1_as_first_heading(soup):
-    first_heading = soup.find('h1')
-    first_element = soup.find()
-    if first_heading != first_element:
-        print("H1 is not the first heading in the document")
-        return False
-    else:
-        print("H1 is the first heading in the document")
-        return True
 
 # Function to check if an element has a valid link text
 def has_valid_link_text(element):
@@ -89,16 +80,34 @@ def has_valid_link_text(element):
     else:
         print("Link has valid text")
         return True
+    
+def num_links_has_valid_link_text(soup):
+    links = soup.find_all('a')
+    num_links_with_valid_text = 0
+    for link in links:
+        if has_valid_link_text(link):
+            num_links_with_valid_text += 1
+    print("Number of links with valid text:", num_links_with_valid_text)
+    return num_links_with_valid_text
+
+def num_links_without_valid_text(soup):
+    links = soup.find_all('a')
+    num_links_without_valid_text = 0
+    for link in links:
+        if not has_valid_link_text(link):
+            num_links_without_valid_text += 1
+    print("Number of links without valid text:", num_links_without_valid_text)
+    return num_links_without_valid_text
 
 # Function to check if an element has a valid role
 def has_valid_role(element):
     # Perform logic to check if the element has a valid role
     role = element.get('role')
     if role:
-        print("Element has a valid role")
+        #print("Element has a valid role")
         return True
     else:
-        print("Element does not have a valid role")
+        #print("Element does not have a valid role")
         return False
 
 # Function to check if an element has a valid tabindex
@@ -106,9 +115,10 @@ def has_valid_tabindex(element):
     # Perform logic to check if the element has a valid tabindex
     tabindex = element.get('tabindex')
     if tabindex:
-        print("Element has a valid tabindex")
+        #print("Element has a valid tabindex")
+        self.has_valid_tabindex = True
     else:
-        print("Element does not have a valid tabindex")
+        #print("Element does not have a valid tabindex")
         return False
 
 # Function to check if an element has a valid form label
@@ -116,36 +126,24 @@ def has_valid_form_label(element):
     # Perform logic to check if the element has a valid form label
     form_label = element.get('aria-label')
     if form_label:
-        print("Element has a valid form label")
+       # print("Element has a valid form label")
         return True
     else:
-        print("Element does not have a valid form label")
+        #print("Element does not have a valid form label")
         return False
-
-# Function to check if an element has a valid label for form controls
-def has_valid_form_control_label(element):
-    # Perform logic to check if the element has a valid label for form controls
-    label = element.get('aria-labelledby')
-    if label:
-        print("Element has a valid label for form controls")
-        return True
-    else:
-        print("Element does not have a valid label for form controls")
-        return False
-        
 
 # Function to check if an element has a valid language attribute
 def has_valid_language_attribute(element):
     # Perform logic to check if the element has a valid language attribute
     lang_attribute = element.get('lang')
-    if lang_attribute:
-        print("Element has a valid language attribute")
-    else:
-        print("Element does not have a valid language attribute")
+        #if lang_attribute:
+        #print("Element has a valid language attribute")
+    #   else:
+        #print("Element does not have a valid language attribute")
 
 # Function to check if an element has a valid title attribute
 def has_valid_title_attribute(element):
-    # Perform logic to check if the element has a valid title attribute
+    #Perform logic to check if the element has a valid title attribute
     title_attribute = element.get('title')
     if title_attribute:
         print("Element has a valid title attribute")
@@ -156,11 +154,11 @@ def has_valid_title_attribute(element):
 # You can use the soup object to access the HTML elements
 
 # Example: Check if the HTML page has a clear visual hierarchy
-headings = soup.find_all(['h1', 'h2', 'h3', 'h4', 'h5', 'h6'])
-if len(headings) > 1:
-    print("HTML page has a clear visual hierarchy")
-else:
-    print("HTML page does not have a clear visual hierarchy")
+#headings = soup.find_all(['h1', 'h2', 'h3', 'h4', 'h5', 'h6'])
+#if len(headings) > 1:
+    #print("HTML page has a clear visual hierarchy")
+#else:
+    #print("HTML page does not have a clear visual hierarchy")
 
 # Function to check accessibility of a web page
 def assess_accessibility(url):
@@ -220,6 +218,42 @@ def assess_accessibility(url):
                 
         print(f"Number of elements with insufficient color contrast: {num_insufficient_contrast_elements}")
         report.num_insufficient_contrast_elements = num_insufficient_contrast_elements
+
+
+        # Perform logic to count the number of elements that do not have a valid role attribute
+        elements = soup.find_all()
+        num_elements_without_valid_role = 0
+        for element in elements:
+            if not has_valid_role(element):
+                num_elements_without_valid_role += 1
+        print(f"Number of elements without a valid role attribute: {num_elements_without_valid_role}")
+        report.num_elements_without_valid_role = num_elements_without_valid_role
+
+
+
+
+        # Perform logic to count the number of elements that do not have a valid tabindex attribute
+        elements = soup.find_all()
+        num_elements_without_valid_tabindex = 0
+        for element in elements:
+            if not has_valid_tabindex(element):
+                num_elements_without_valid_tabindex += 1
+        print(f"Number of elements without a valid tabindex attribute: {num_elements_without_valid_tabindex}")
+        report.num_elements_without_valid_tabindex = num_elements_without_valid_tabindex
+
+
+
+
+        # Perform logic to count the number of elements that do not have a valid form label
+        elements = soup.find_all()
+        num_elements_without_valid_form_label = 0
+        for element in elements:
+            if not has_valid_form_label(element):
+                num_elements_without_valid_form_label += 1
+        print(f"Number of elements without a valid form label: {num_elements_without_valid_form_label}")
+        report.num_elements_without_valid_form_label = num_elements_without_valid_form_label
+
+
     else:
         print("Failed to retrieve the web page.")
        
@@ -227,6 +261,46 @@ def assess_accessibility(url):
     
     # Return the accessibility report
     return report
+
+def parse_inaccessible_elements(report, soup):
+    # Perform logic to parse all inaccessible elements
+    inaccessible_elements = []
+    
+    # Find all elements with insufficient color contrast
+    #elements = soup.find_all(['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'span', 'div'])
+    #for element in elements:
+     #   if has_sufficient_contrast(element):
+     #       continue
+     #   inaccessible_element = {
+     #       'tag': element.name,
+    #        'text': element.text.strip(),
+      #      'class': element.get('class'),
+     #       'id': element.get('id'),
+     #       'attributes': element.attrs
+     #   }
+     #   inaccessible_elements.append(inaccessible_element)
+
+    # Find all images without alt attributes
+    images = soup.find_all('img')
+    for image in images:
+        if image.has_attr('alt'):
+            continue
+        inaccessible_element = {
+            'tag': 'img',
+            'src': image.get('src'),
+            'class': image.get('class'),
+            'id': image.get('id'),
+            'attributes': image.attrs
+        }
+        inaccessible_elements.append(inaccessible_element)
+    
+    # Update the report with the inaccessible elements
+    report.inaccessible_elements = inaccessible_elements
+    
+    # Print the inaccessible elements
+    print("Inaccessible Elements:")
+    for element in inaccessible_elements:
+        print(element)
 
 # Main program
 if __name__ == "__main__":
