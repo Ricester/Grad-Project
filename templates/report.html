@@ -52,8 +52,16 @@
             <td>{{ report.num_elements_without_valid_language_attribute }}</td>
         </tr>
         <tr>
-            <td>Number of elements with no valid title attribute</td>
+            <td>Number of links with no valid title attribute</td>
             <td>{{ report.num_links_without_valid_title_attribute }}</td>
+        </tr>
+        <tr>
+            <td>Does the HTML page have a clear visual hierarchy?</td>
+            {% if report.visual_hierarchy == True %}
+            <td>Yes</td>
+            {% else %}
+            <td>No</td>
+            {% endif %}
         </tr>
     </table>
     <h2>Elements Lacking Accessibility</h2>

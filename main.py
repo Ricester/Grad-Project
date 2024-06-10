@@ -13,12 +13,14 @@ class AccessibilityReport:
         self.has_valid_tabindex = False
         self.has_valid_form_label = False
         self.has_valid_language_attribute = False
+        self.link_has_valid_title_attribute = False
         self.title_attribute = False
         self.headings = False
         self.contrast_ratio = False
         self.num_links_with_valid_text = 0
         self.num_links_without_valid_text = 0
         self.inaccessible_elements = []
+        self.visual_hierarchy = False
 
 
 soup = BeautifulSoup('<html><head><title>Test</title></head><body><h1>Heading 1</h1><p>Paragraph</p></body></html>', 'html.parser')
@@ -141,24 +143,18 @@ def has_valid_language_attribute(element):
     #   else:
         #print("Element does not have a valid language attribute")
 
-# Function to check if an element has a valid title attribute
+# Function to check if a link has a valid title attribute
 def has_valid_title_attribute(element):
-    #Perform logic to check if the element has a valid title attribute
+    # Perform logic to check if the link has a valid title attribute
     title_attribute = element.get('title')
     if title_attribute:
-        print("Element has a valid title attribute")
+        #print("Link has a valid title attribute")
+        return True
     else:
-        print("Element does not have a valid title attribute")
+        #print("Link does not have a valid title attribute")
+        return False
 
-# Perform logic to check visual clarity of the HTML page
-# You can use the soup object to access the HTML elements
-
-# Example: Check if the HTML page has a clear visual hierarchy
-#headings = soup.find_all(['h1', 'h2', 'h3', 'h4', 'h5', 'h6'])
-#if len(headings) > 1:
-    #print("HTML page has a clear visual hierarchy")
-#else:
-    #print("HTML page does not have a clear visual hierarchy")
+              
 
 # Function to check accessibility of a web page
 def assess_accessibility(url):
@@ -254,6 +250,33 @@ def assess_accessibility(url):
         report.num_elements_without_valid_form_label = num_elements_without_valid_form_label
 
 
+        # Perform logic to check if the HTML page has a clear visual hierarchy
+        headings = soup.find_all(['h1', 'h2', 'h3', 'h4', 'h5', 'h6'])
+        if len(headings) > 1:
+            report.visual_hierarchy = True
+        else:
+            print("HTML page does not have a clear visual hierarchy")
+            report.visual_hierarchy = False
+
+        # Perform logic to count how many elements have no valid language attribute
+        elements = soup.find_all()
+        num_elements_without_valid_language_attribute = 0
+        for element in elements:
+            if not has_valid_language_attribute(element):
+                num_elements_without_valid_language_attribute += 1
+        print(f"Number of elements without a valid language attribute: {num_elements_without_valid_language_attribute}")
+        report.num_elements_without_valid_language_attribute = num_elements_without_valid_language_attribute
+
+        # Perform logic to count how many links have no valid title attribute
+        links = soup.find_all('a')
+        num_links_without_valid_title_attribute = 0
+        for link in links:
+            if not has_valid_title_attribute(link):
+                num_links_without_valid_title_attribute += 1
+        print(f"Number of links without a valid title attribute: {num_links_without_valid_title_attribute}")
+        report.num_links_without_valid_title_attribute = num_links_without_valid_title_attribute
+
+        
     else:
         print("Failed to retrieve the web page.")
        
