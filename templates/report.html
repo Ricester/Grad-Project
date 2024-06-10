@@ -11,58 +11,69 @@
 {% if report.successful %}
     <h1>The website was successfully evaluated! Here is a table evaluating all available elements:</h1>
     <table>
-        <tr>
-            <th>Variable</th>
-            <th>Value</th>
-        </tr>
-        <tr>
-            <td>Number of images</td>
-            <td>{{ report.num_images }}</td>
-        </tr>
-        <tr>
-            <td>Number of images without alt text</td>
-            <td>{{ report.num_images_without_alt }}</td>
-        </tr>
-        <tr>
-            <td>Number of links</td>
-            <td>{{ report.num_links }}</td>
-        </tr>
-        <tr>
-            <td>Number of elements without sufficient colour contrast</td>
-            <td>{{ report.num_insufficient_contrast_elements }}</td>
-        </tr>
-        <tr>
-            <td>Number of links without valid text</td>
-            <td>{{ report.num_links_without_valid_text }}</td>
-        </tr>
-        <tr>
-            <td>Number of elements with no valid role attribute</td>
-            <td>{{ report.num_elements_without_valid_role }}</td>
-        </tr>
-        <tr>
-            <td>Number of elements with no valid tab index</td>
-            <td>{{ report.num_elements_without_valid_tabindex }}</td>
-        </tr>
-        <tr>
-            <td>Number of elements with no valid form labels</td>
-            <td>{{ report.num_elements_without_valid_form_label }}</td>
-        </tr>
-        <tr>
-            <td>Number of elements with no valid language attribute</td>
-            <td>{{ report.num_elements_without_valid_language_attribute }}</td>
-        </tr>
-        <tr>
-            <td>Number of links with no valid title attribute</td>
-            <td>{{ report.num_links_without_valid_title_attribute }}</td>
-        </tr>
-        <tr>
-            <td>Does the HTML page have a clear visual hierarchy?</td>
-            {% if report.visual_hierarchy == True %}
-            <td>Yes</td>
-            {% else %}
-            <td>No</td>
-            {% endif %}
-        </tr>
+        <caption>Accessibility Evaluation Report</caption>
+        <thead>
+            <tr>
+                <th scope="col"">Variable</th>
+                <th scope="col">Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Number of images</td>
+                <td>{{ report.num_images }}</td>
+            </tr>
+            <tr>
+                <td>Number of images without alt text</td>
+                <td>{{ report.num_images_without_alt }}</td>
+            </tr>
+            <tr>
+                <td>Number of links</td>
+                <td>{{ report.num_links }}</td>
+            </tr>
+            <tr>
+                <td>Number of elements without sufficient colour contrast</td>
+                <td>{{ report.num_insufficient_contrast_elements }}</td>
+            </tr>
+            <tr>
+                <td>Number of links without valid text</td>
+                <td>{{ report.num_links_without_valid_text }}</td>
+            </tr>
+            <tr>
+                <td>Number of elements with no valid role attribute</td>
+                <td>{{ report.num_elements_without_valid_role }}</td>
+            </tr>
+            <tr>
+                <td>Number of elements with no valid tab index</td>
+                <td>{{ report.num_elements_without_valid_tabindex }}</td>
+            </tr>
+            <tr>
+                <td>Number of elements with no valid form labels</td>
+                <td>{{ report.num_elements_without_valid_form_label }}</td>
+            </tr>
+            <tr>
+                <td>Number of elements with no valid language attribute</td>
+                <td>{{ report.num_elements_without_valid_language_attribute }}</td>
+            </tr>
+            <tr>
+                <td>Number of links with no valid title attribute</td>
+                <td>{{ report.num_links_without_valid_title_attribute }}</td>
+            </tr>
+            <tr>
+                <td>Does the HTML page have a clear visual hierarchy?</td>
+                {% if report.visual_hierarchy == True %}
+                <td>Yes</td>
+                {% else %}
+                <td>No</td>
+                {% endif %}
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <th scope="row" colspan="2">Total accessibility issues</th>
+                <td colspan="2"></td>
+            </tr>
+        </tfoot>
     </table>
     <h2>Elements Lacking Accessibility</h2>
     <script>
@@ -95,8 +106,8 @@
     <div id="tab1" class="tabcontent" style="display: none;">
         <h3>Images missing alt text</h3>
         {% if report.num_images_without_alt > 0 %}
-        <p>List of images with missing alt text</p>
         <table>
+            <caption>List of images with missing alt text</caption>
             <tr>
                 <th>Element</th>
                 <th>Issue</th>
@@ -115,8 +126,8 @@
 
     <div id="tab2" class="tabcontent" style="display: none;">
         <h3>Insufficient colour contrast</h3>
-        <p>List of elements with insufficient colour contrast</p>
         <table>
+            <caption>List of elements with insufficient colour contrast</caption>
             <tr>
                 <th>Element</th>
                 <th>Issue</th>
@@ -131,8 +142,8 @@
     </div>
     <div id="tab3" class="tabcontent" style="display: none;">
         <h3>No valid title attribute</h3>
-        <p>List of elements with no valid title attributes</p>
         <table>
+            <caption>List of elements with no valid title attributes</caption>
             <tr>
                 <th>Element</th>
                 <th>Issue</th>
@@ -148,8 +159,8 @@
     <div id="tab4" class="tabcontent" style="display: none;">
         <h3>No valid language attribute</h3>
         <!--{% if report.has_valid_language_attribute == False %}-->
-        <p>List of elements with no valid language attributes</p>
         <table>
+            <caption>List of elements with no valid language attributes</caption>
             <tr>
                 <th>Element</th>
                 <th>Issue</th>
