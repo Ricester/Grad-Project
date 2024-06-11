@@ -59,3 +59,22 @@ body {
   body {
     font-family: Tahoma, sans-serif;
   }
+  /* unvisited link */
+  a:link {
+    color: yellow;
+  }
+
+  /* visited link */
+  a:visited {
+    color: greenyellow;
+  }
+
+  /* mouse over link */
+  a:hover {
+    color: hotpink;
+  }
+
+  /* selected link */
+  a:active {
+    color: orange;
+  }

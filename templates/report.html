@@ -7,9 +7,10 @@
 </head>
 <body>
 <h1>Accessibility Report</h1>
-<!--adding the list for variables for accessibility checks-->
+<!--Adding the list for variables for accessibility checks-->
 {% if report.successful %}
     <h1>The website was successfully evaluated! Here is a table evaluating all available elements:</h1>
+    <h3>URL: <a href="{{report.url}}">{{ report.base_url }}</a></h3>
     <table>
         <caption>Accessibility Evaluation Report</caption>
         <thead>
@@ -44,7 +45,7 @@
                 <td>{{ report.num_elements_without_valid_role }}</td>
             </tr>
             <tr>
-                <td>Number of elements with no valid tab index</td>
+                <td>Number of elements with no valid tabindex attribute</td>
                 <td>{{ report.num_elements_without_valid_tabindex }}</td>
             </tr>
             <tr>
@@ -60,6 +61,10 @@
                 <td>{{ report.num_links_without_valid_title_attribute }}</td>
             </tr>
             <tr>
+                <td>Number of elements without a descriptive label</td>
+                <td>{{ report.num_elements_without_aria_label }}</td>
+            </tr>
+            <tr>
                 <td>Does the HTML page have a clear visual hierarchy?</td>
                 {% if report.visual_hierarchy == True %}
                 <td>Yes</td>
@@ -71,7 +76,7 @@
         <tfoot>
             <tr>
                 <th scope="row" colspan="2">Total accessibility issues</th>
-                <td colspan="2"></td>
+                <td colspan="2">{{ report.all_issues }}</td>
             </tr>
         </tfoot>
     </table>
@@ -101,151 +106,173 @@
         <button class="tablinks" onclick="openTab(event, 'tab6')">No valid tab index</button>
         <button class="tablinks" onclick="openTab(event, 'tab7')">No valid role</button>
         <button class="tablinks" onclick="openTab(event, 'tab8')">Links missing valid text</button>
+        <button class="tablinks" onclick="openTab(event, 'tab9')">No descriptive label</button>
     </div>
-    <!-- tabs to show elements that are not meeting accessibility standards -->>
+    <!--Tabs to show elements that are not meeting accessibility standards -->
     <div id="tab1" class="tabcontent" style="display: none;">
         <h3>Images missing alt text</h3>
         {% if report.num_images_without_alt > 0 %}
         <table>
             <caption>List of images with missing alt text</caption>
             <tr>
+                <th>Image</th>
                 <th>Element</th>
-                <th>Issue</th>
             </tr>
-            {% for element in report.inaccessible_elements %}
+            {% for element in report.inaccessible_elements_image %}
                 <tr>
+                    <td><img src="{{ element.get('src') }}" style="max-width: 450px; max-height: 300px"></td>
                     <td>{{ element }}</td>
-                    <td>{{ element.issue }}</td>
-                </tr>
+               </tr>
             {% endfor %}
         </table>
         {% else %}
-        <p>There are no images with missing alt text.</p>
+            <p>There are no images with missing alt text.</p>
         {% endif %}
     </div>
 
     <div id="tab2" class="tabcontent" style="display: none;">
         <h3>Insufficient colour contrast</h3>
-        <table>
-            <caption>List of elements with insufficient colour contrast</caption>
-            <tr>
-                <th>Element</th>
-                <th>Issue</th>
-            </tr>
-            {% for element in report.inaccessible_elements %}
+        {% if report.num_insufficient_contrast_elements > 0 %}
+            <table>
+                <caption>List of elements with insufficient colour contrast</caption>
                 <tr>
-                    <td>{{ element }}</td>
-                    <td>{{ element.issue }}</td>
+                    <th>Element</th>
                 </tr>
-            {% endfor %}
-        </table>
+                {% for element in report.inaccessible_elements_contrast %}
+                    <tr>
+                        <td>{{ element }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% else %}
+            <p>There are no elements with insufficient colour contrast</p>
+        {% endif %}
     </div>
     <div id="tab3" class="tabcontent" style="display: none;">
         <h3>No valid title attribute</h3>
+        {% if report.num_links_without_valid_title_attribute > 0 %}
         <table>
             <caption>List of elements with no valid title attributes</caption>
             <tr>
                 <th>Element</th>
-                <th>Issue</th>
             </tr>
-            {% for element in report.inaccessible_elements %}
+            {% for element in report.inaccessible_elements_title_attribute %}
                 <tr>
                     <td>{{ element }}</td>
-                    <td>{{ element.issue }}</td>
                 </tr>
             {% endfor %}
         </table>
+        {% else %}
+            <p>There are no links without a valid title attribute.</p>
+        {% endif %}
     </div>
     <div id="tab4" class="tabcontent" style="display: none;">
         <h3>No valid language attribute</h3>
-        <!--{% if report.has_valid_language_attribute == False %}-->
+        {% if report.num_elements_without_valid_language_attribute > 0 %}
         <table>
             <caption>List of elements with no valid language attributes</caption>
             <tr>
                 <th>Element</th>
-                <th>Issue</th>
             </tr>
-            {% for element in report.inaccessible_elements %}
+            {% for element in report.inaccessible_elements_language_attribute %}
                 <tr>
                     <td>{{ element }}</td>
-                    <td>{{ element.issue }}</td>
                 </tr>
             {% endfor %}
         </table>
         {% else %}
-        <p>There are no elements that hav no valid language attributes,</p>
+            <p>There are no elements that hav no valid language attributes,</p>
         {% endif %}
     </div>
     <div id="tab5" class="tabcontent" style="display: none;">
         <h3>No valid form label</h3>
-        {% if report.has_valid_form_label == False %}
-        <p>List of elements with no valid form label</p>
+        {% if report.num_elements_without_valid_form_label > 0 %}
         <table>
+            <caption>List of elements with no valid form label</caption>
             <tr>
                 <th>Element</th>
-                <th>Issue</th>
             </tr>
-            {% for element in report.inaccessible_elements %}
+            {% for element in report.inaccessible_elements_form_label %}
                 <tr>
                     <td>{{ element }}</td>
-                    <td>{{ element.issue }}</td>
                 </tr>
             {% endfor %}
         </table>
         {% else %}
-        <p>There are no elements that have no valid form labels.</p>
+            <p>There are no elements missing a valid form label.</p>
         {% endif %}
     </div>
     <div id="tab6" class="tabcontent" style="display: none;">
         <h3>No valid tab index</h3>
-        <p>List of elements with no valid tab index</p>
+        {% if report.num_elements_without_valid_tabindex > 0 %}
         <table>
+            <caption>List of elements with no valid tabindex attribute</caption>
             <tr>
                 <th>Element</th>
-                <th>Issue</th>
             </tr>
-            {% for element in report.inaccessible_elements %}
+            {% for element in report.inaccessible_elements_tabindex %}
                 <tr>
                     <td>{{ element }}</td>
-                    <td>{{ element.issue }}</td>
                 </tr>
             {% endfor %}
         </table>
+        {% else %}
+            <p>There are no elements missing a valid tabindex attribute.</p>
+        {% endif %}
     </div>
     <div id="tab7" class="tabcontent" style="display: none;">
         <h3>No valid role</h3>
-        <p>List of elements with no valid roles </p>
+        {% if report.num_elements_without_valid_role > 0 %}
         <table>
+            <caption>List of elements with no valid role attributes</caption>
             <tr>
                 <th>Element</th>
-                <th>Issue</th>
             </tr>
-            {% for element in report.inaccessible_elements %}
+            {% for element in report.inaccessible_elements_role %}
                 <tr>
                     <td>{{ element }}</td>
-                    <td>{{ element.issue }}</td>
                 </tr>
             {% endfor %}
         </table>
+        {% else %}
+            <p>There are no elements missing a valid role attribute.</p>
+        {% endif %}
     </div>
     <div id="tab8" class="tabcontent" style="display: none;">
         <h3>Links missing valid text</h3>
-        <p>List of links that are missing valid text</p>
-        {% if report.num_links_without_valid_text > 0%}
+        {% if report.num_links_without_valid_text > 0 %}
         <table>
+            <caption>List of links that are missing valid text</caption>
             <tr>
                 <th>Element</th>
-                <th>Issue</th>
             </tr>
-            {% for element in report.inaccessible_elements %}
+            {% for element in report.inaccessible_links_text %}
                 <tr>
+                    
                     <td>{{ element }}</td>
-                    <td>{{ element.issue }}</td>
                 </tr>
             {% endfor %}
         </table>
         {% else %}
             <p>There are no links that are missing valid text.</p>
+        {% endif %}
+    </div>
+    <div id="tab9" class="tabcontent" style="display: none;">
+        <h3>No descriptive label</h3>
+        {% if report.num_elements_without_aria_label > 0 %}
+            <table>
+                <caption>List of elements with no descriptive label</caption>
+                <tr>
+                    <th>Element</th>
+                </tr>
+                {% for element in report.inaccessible_elements_aria %}
+                    <tr>
+                        <td>{{ element }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% else %}
+            <p>There are no elements with insufficient colour contrast</p>
         {% endif %}
     </div>
 {% else %}

@@ -2,27 +2,27 @@
 <html>
     <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
 
-    <!--changes tab name-->
+    <!--Changes tab name-->
     <head>
             <!--adding css file-->
     <link rel="stylesheet" type="text/css" href="static/styling.css">
         <title> Evaluation Tool </title>
     </head>
-    <!--adds an image to the top of the website-->
+    <!--Adds an image to the top of the website-->
     <header>
         <img src="static/welcome.png" alt="Welcome to the Evaluation Tool!" style="width:100%;height:200px;">
     </header>
     <body>
         <h1> Welcome to the Evaluation Tool website!</h1>
         <p> Enter the URL of the site you wish to evaluate below, then click submit:</p>
-        <!--form here for user to input url of test site-->
+        <!--Form here for user to input url of test site-->
 
         <form>
             <input type="text" id="urlInput" placeholder="Enter URL" style="width: 600px; height: 50px">
             <input type="button" value="Submit" onclick="redirectToEvaluationPage()">
             <span title="Enter the URL of the website you wish to evaluate, then click submit."></span>
         </form>
-        <!--function to redirect to evaluation page-->
+        <!--Function to redirect to evaluation page-->
         <script>
             function redirectToEvaluationPage() {
                 var url = document.getElementById("urlInput").value;
@@ -31,9 +31,9 @@
         </script>
 
         <h2>Features available</h2>
-        <!--tabs for the features of the website-->
+        <!--Tabs for the features of the website-->
         <script>
-            // function to change a selected tab to active tab
+            // Function to change a selected tab to active tab
             function openTab(event, tabName) {
                 var i, tabcontent, tablinks;
                 tabcontent = document.getElementsByClassName("tabcontent");
@@ -49,18 +49,16 @@
             }
         </script>
 
-        <!--tab links-->
+        <!--Tab links-->
         <div class="tab">
             <button class="tablinks" onclick="openTab(event, 'tab1')">Analysing accessibility</button>
             <button class="tablinks" onclick="openTab(event, 'tab2')">Providing suggestions for improvement</button>
             <button class="tablinks" onclick="openTab(event, 'tab3')">Showing specific elements that are lacking in accessibility standards</button>
         </div>
-        <!--tab 1: Analysing accessibility-->
         <div id="tab1" class="tabcontent" style="display: none;">
             <h3>Analysing accessibility</h3>
             <p> This feature allows you to evaluate the accessibility of a website. It will provide you with a report on the accessibility of the website, including any issues that need to be addressed.</p>
         </div>
-        <!--tab 2: Providing suggestions for improvement-->
         <div id="tab2" class="tabcontent" style="display: none;">
             <h3>Providing suggestions for improvement</h3>
             <p> This feature provides you with suggestions on how to improve the accessibility of a website. It will give you recommendations on how to make the website more accessible to all users.</p>
